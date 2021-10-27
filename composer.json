@@ -1,0 +1,10 @@
+{
+    "name": "framework/chi",
+    "authors": [
+        {
+            "name": "MuhammedSami",
+            "email": "muhammedsami6@gmail.com"
+        }
+    ],
+    "require": {}
+}
