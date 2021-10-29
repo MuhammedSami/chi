@@ -12,15 +12,25 @@ class Application
 
     public $request;
 
+    public $response;
+
+    public static $ROOT_DIR;
+
+    public static $app;
+
     /**
      * Application constructor.
      *
      * @param $router
      */
-    public function __construct()
+    public function __construct($rootPath)
     {
+        self::$ROOT_DIR = $rootPath;
+        self::$app = $this;
+
         $this->request = new Request();
-        $this->router = new Router($this->request);
+        $this->response = new Response();
+        $this->router = new Router($this->request, $this->response);
     }
 
     public function run()
