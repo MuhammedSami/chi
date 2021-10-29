@@ -17,7 +17,8 @@ class Router
      *
      * @param \App\Core\Request $request
      */
-    public function __construct(Request $request) {
+    public function __construct(Request $request)
+    {
         $this->request = $request;
     }
 
@@ -37,11 +38,10 @@ class Router
         $method = $this->request->getMethod();
         $callback = $this->routes[$method][$path] ?? false;
 
-        if ($callback === false){
-            echo "NOT FOUND";
-            exit;
+        if ($callback === false) {
+            return "NOT FOUND";
         }
 
-        echo call_user_func($callback);
+        return call_user_func($callback);
     }
 }
