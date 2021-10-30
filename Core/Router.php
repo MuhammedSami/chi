@@ -12,13 +12,18 @@ class Router
 
     protected $request;
 
+    protected $response;
+
     /**
      * Router constructor.
      *
      * @param \App\Core\Request $request
+     * @param \App\Core\Response $response
      */
-    public function __construct(Request $request) {
+    public function __construct(Request $request, Response $response)
+    {
         $this->request = $request;
+        $this->response = $response;
     }
 
     public function get($path, $callback)
@@ -37,11 +42,40 @@ class Router
         $method = $this->request->getMethod();
         $callback = $this->routes[$method][$path] ?? false;
 
-        if ($callback === false){
-            echo "NOT FOUND";
-            exit;
+        if ($callback === false) {
+            $this->response->setStatusCode(404);
+
+            return $this->renderView("_404");
         }
 
-        echo call_user_func($callback);
+        if (is_string($callback)) {
+            return $this->renderView($callback);
+        }
+
+        return call_user_func($callback);
+    }
+
+    public function renderView($callback)
+    {
+        $layoutContent = $this->layoutContent();
+        $viewContent = $this->renderOnlyView($callback);
+
+        return str_replace('{{content}}', $viewContent, $layoutContent);
+    }
+
+    protected function layoutContent()
+    {
+        ob_start();
+        include_once Application::$ROOT_DIR."/views/layouts/main.php";
+
+        return ob_get_clean();
+    }
+
+    protected function renderOnlyView($callback)
+    {
+        ob_start();
+        include_once Application::$ROOT_DIR."/views/$callback.php";
+
+        return ob_get_clean();
     }
 }
