@@ -8,11 +8,11 @@ namespace App\Core;
  */
 class Router
 {
-    protected $routes;
+    protected array $routes;
 
-    protected $request;
+    protected Request $request;
 
-    protected $response;
+    protected Response $response;
 
     /**
      * Router constructor.
