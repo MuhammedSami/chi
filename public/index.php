@@ -1,12 +1,11 @@
 <?php
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/../bootstrap/app.php';
 
-use App\Core\Application;
+use App\Controllers\SiteController;
 
-$app = new Application();
+$app->router->get('/', 'home');
 
-$app->router->get('/', function (){
-    echo "Hello World";
-});
+$app->router->get('/contact', [SiteController::class, 'contact']);
+$app->router->post('/contact', [SiteController::class, 'handleContact']);
 
 $app->run();
