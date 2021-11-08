@@ -8,9 +8,9 @@ namespace App\Core;
  */
 class ConsoleFormatter
 {
-    public function out($message)
+    public function out($message, $color = null)
     {
-        echo $message;
+        echo Output::colorize($color, $message);
     }
 
     public function newline()
@@ -18,11 +18,9 @@ class ConsoleFormatter
         $this->out(PHP_EOL);
     }
 
-    public function display($message)
+    public function display($message, $color = null)
     {
-        $this->newline();
-        $this->out($message);
-        $this->newline();
+        $this->out($message, $color);
         $this->newline();
     }
 }
