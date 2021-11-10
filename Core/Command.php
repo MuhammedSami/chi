@@ -71,6 +71,10 @@ class Command
             }
         }, 'List all commands');
 
+        $this->register('serve', function () {
+            exec('cd public; php -S localhost:8080');
+        }, 'Serve my application');
+
         $this->register('create', function (array $argv) {
             if (isset($argv[2]) && $argv[2] == "--help") {
                 $this->formatter->display('create --controller ExCont');
