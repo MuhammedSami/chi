@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\Application;
+use App\Core\Request;
 
 /**
  * @author  Muhammed Sami
@@ -19,9 +20,9 @@ class SiteController extends BaseController
         return $this->render('contact', $params);
     }
 
-    public function handleContact()
+    public function handleContact(Request $request)
     {
-        var_dump($_POST);
+
         return "Handling...";
     }
 }
