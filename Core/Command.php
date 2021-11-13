@@ -8,6 +8,9 @@ namespace App\Core;
  */
 class Command
 {
+    /**
+     * @var array
+     */
     protected array $registry;
 
     protected ConsoleFormatter $formatter;
