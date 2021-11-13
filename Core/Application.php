@@ -2,26 +2,31 @@
 
 namespace App\Core;
 
+use App\Controllers\BaseController;
+
 /**
  * @author  Muhammed Sami
  * @package App\Core
  */
 class Application
 {
-    public $router;
+    public Router $router;
 
-    public $request;
+    public Request $request;
 
-    public $response;
+    public Response $response;
 
-    public static $ROOT_DIR;
+    public static string $ROOT_DIR;
 
-    public static $app;
+    public static self $app;
+
+    protected BaseController $controller;
+
 
     /**
      * Application constructor.
      *
-     * @param $router
+     * @param $rootPath
      */
     public function __construct($rootPath)
     {
@@ -36,5 +41,21 @@ class Application
     public function run()
     {
         echo $this->router->resolve();
+    }
+
+    /**
+     * @return \App\Controllers\BaseController
+     */
+    public function getController(): \App\Controllers\BaseController
+    {
+        return $this->controller;
+    }
+
+    /**
+     * @param \App\Controllers\BaseController $controller
+     */
+    public function setController(\App\Controllers\BaseController $controller): void
+    {
+        $this->controller = $controller;
     }
 }
