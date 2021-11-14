@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Controllers\BaseController;
+
 /**
  * @author  Muhammed Sami
  * @package App\Core
@@ -59,6 +61,8 @@ class Router
             return $this->renderView("_404");
         }
 
+        Application::$app->setController(new BaseController());
+
         if (is_array($callback)) {
             Application::$app->setController(new $callback[0]());
             $callback[0] = Application::$app->getController();
@@ -89,7 +93,6 @@ class Router
      */
     protected function layoutContent()
     {
-        ob_start();
         $layout = Application::$app->getController()->layout;
         include_once Application::$ROOT_DIR."/views/layouts/$layout.php";
 
