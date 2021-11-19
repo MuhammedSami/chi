@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\Request;
+use App\Models\RegisterModel;
 
 /**
  * @author  Muhammed Sami
@@ -20,6 +21,14 @@ class AuthController extends BaseController
         $this->setLayout('auth');
 
         if ($request->isPost()) {
+            $registerEntry = new RegisterModel();
+            $registerEntry->loadData($request->getBody());
+
+            if ($registerEntry->validate() && $registerEntry->register()){
+                return 'success';
+            }
+
+
             return 'Handle data';
         }
 
