@@ -25,6 +25,9 @@ abstract class Model
         }
     }
 
+    /**
+     * @return bool
+     */
     public function validate()
     {
         foreach ($this->rules() as $attribute => $rules) {
@@ -81,5 +84,15 @@ abstract class Model
             self::RULE_MAX      => 'Max length of {attribute} must be {MAX}',
             self::RULE_MATCH    => 'attribute must be the same as {match}',
         ];
+    }
+
+    public function hasError($attribute)
+    {
+        return $this->errors[$attribute] ?? false;
+    }
+
+    public function getFirstError($attribute)
+    {
+        return $this->errors[$attribute][0] ?? false;
     }
 }
